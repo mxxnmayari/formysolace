@@ -412,33 +412,13 @@ transform: scale(0.92);
 box-shadow: 0 0 25px var(--accent-color, #B82C38);
 }
 
-/* SPOTIFY THEME & DARK MODE SLEEVE STYLING */
+/* SPOTIFY THEME & SLEEVE STYLING */
 .album-sleeve-box {
 background-color: var(--card-bg, #ffffff);
 color: var(--text-primary, #3A1B20);
 border: 2px solid var(--accent-color, #B82C38);
 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 transition: all 0.3s ease;
-}
-body.spotify-active-dark-mode {
-background-color: #0c0c12 !important;
-color: #f3f4f6 !important;
-}
-body.spotify-active-dark-mode header {
-background: rgba(16, 16, 24, 0.95) !important;
-color: #f3f4f6 !important;
-border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-}
-body.spotify-active-dark-mode .vinyl-turntable-card {
-background-color: #161622 !important;
-color: #f3f4f6 !important;
-border-color: var(--accent-color) !important;
-}
-body.spotify-active-dark-mode .album-sleeve-box {
-background: linear-gradient(135deg, #1e1b2e 0%, #12101d 100%) !important;
-color: #f3f4f6 !important;
-border-color: var(--accent-color, #B82C38) !important;
-box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 15px var(--accent-color, #B82C38);
 }
 
 @keyframes dynamicThemeGlowPulse {
@@ -449,14 +429,6 @@ box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 15px var(--accent-color, #B82C38);
 .vinyl-glowing-active {
 animation: dynamicThemeGlowPulse 4s ease-in-out infinite;
 border-width: 2px !important;
-}
-@keyframes cdBackGlowPulse {
-0% { filter: drop-shadow(0 0 25px var(--accent-color)) drop-shadow(0 0 50px rgba(59, 130, 246, 0.85)); }
-50% { filter: drop-shadow(0 0 35px rgba(251, 191, 36, 0.95)) drop-shadow(0 0 65px rgba(168, 85, 247, 0.85)); }
-100% { filter: drop-shadow(0 0 25px var(--accent-color)) drop-shadow(0 0 50px rgba(59, 130, 246, 0.85)); }
-}
-.cd-back-glowing-active {
-animation: cdBackGlowPulse 4s ease-in-out infinite;
 }
 
 .coquette-ribbon-border {
@@ -966,7 +938,7 @@ Unlock Space ✨
           </div>
           <div onclick="switchCustomizeSubTab('spotify')" id="cust-subtab-btn-spotify" class="finder-sidebar-item">
             <i data-lucide="folder" class="w-4 h-4 text-purple-600"></i>
-            <span>Spotify</span>
+            <span>Spotify Playlists</span>
           </div>
           <div onclick="switchCustomizeSubTab('stories')" id="cust-subtab-btn-stories" class="finder-sidebar-item">
             <i data-lucide="folder" class="w-4 h-4 text-purple-600"></i>
@@ -1139,18 +1111,18 @@ Unlock Space ✨
         <!-- SUBTAB 4: SPOTIFY -->
         <div id="cust-subtab-spotify" class="space-y-4 hidden">
           <div class="p-4 bg-white/90 rounded-2xl border border-purple-200 space-y-3 shadow-sm">
-            <span id="spotify-editor-mode-label" class="text-xs font-bold uppercase tracking-wider text-purple-900 block">Add / Edit Spotify Track</span>
+            <span id="spotify-editor-mode-label" class="text-xs font-bold uppercase tracking-wider text-purple-900 block">Add / Edit Spotify Playlist</span>
             <input type="hidden" id="editing-spotify-index" value="-1">
             <div>
               <label class="text-[10px] font-semibold text-purple-800 block mb-1">Album Sleeve Title (Displays on Record Cover)</label>
               <input type="text" id="new-spotify-title" placeholder="Album Sleeve Title (e.g. hello / playlist title)" class="w-full px-3 py-2 rounded-xl border border-purple-200 text-xs bg-white">
             </div>
             <div>
-              <label class="text-[10px] font-semibold text-purple-800 block mb-1">Spotify Playlist / Track Link</label>
+              <label class="text-[10px] font-semibold text-purple-800 block mb-1">Spotify Playlist or Track Link</label>
               <input type="text" id="new-spotify-url" placeholder="https://open.spotify.com/playlist/..." class="w-full px-3 py-2 rounded-xl border border-purple-200 text-xs bg-white">
             </div>
             <div class="flex gap-2">
-              <button id="add-spotify-btn" onclick="addNewSpotifyTrack()" class="flex-1 py-2 bg-purple-700 text-white text-xs font-semibold rounded-xl">Add Spotify Track</button>
+              <button id="add-spotify-btn" onclick="addNewSpotifyTrack()" class="flex-1 py-2 bg-purple-700 text-white text-xs font-semibold rounded-xl">Add Spotify Playlist</button>
               <button id="cancel-spotify-edit-btn" onclick="clearSpotifyForm()" class="hidden px-4 py-2 bg-purple-100 text-purple-800 text-xs font-semibold rounded-xl">Cancel</button>
             </div>
           </div>
@@ -1575,7 +1547,6 @@ updatePasscodeThemeColor();
 if (activeTab === 'moons') {
 document.body.style.backgroundColor = theme.moonsBg || '#07060d';
 document.body.style.color = '#fef3c7';
-document.body.classList.remove('spotify-active-dark-mode');
 const header = document.getElementById('main-header');
 if (header) {
 header.style.backgroundColor = 'rgba(12, 10, 24, 0.95)';
@@ -1583,29 +1554,6 @@ header.style.color = '#fef3c7';
 }
 return;
 }
-if (activeTab === 'spotify') {
-const isAnyPinInserted = Object.values(vinylPinInserted).some(val => val === true);
-if (isAnyPinInserted) {
-document.body.classList.add('spotify-active-dark-mode');
-const header = document.getElementById('main-header');
-if (header) {
-header.style.backgroundColor = 'rgba(16, 16, 24, 0.95)';
-header.style.color = '#f3f4f6';
-}
-} else {
-document.body.classList.remove('spotify-active-dark-mode');
-let tabBg = theme.introBg || '#FFF8F6';
-document.body.style.backgroundColor = tabBg;
-document.body.style.color = theme.textPrimary || '#3A1B20';
-const header = document.getElementById('main-header');
-if (header) {
-header.style.backgroundColor = theme.headerBg || '#FFFFFF';
-header.style.color = theme.headerText || '#1c1917';
-}
-}
-return;
-}
-document.body.classList.remove('spotify-active-dark-mode');
 let tabBg = theme.introBg || '#FFF8F6';
 document.body.style.backgroundColor = tabBg;
 document.body.style.color = theme.textPrimary || '#3A1B20';
@@ -1863,27 +1811,75 @@ if (window.lucide) lucide.createIcons();
 function toggleVinylPin(idx) {
 vinylPinInserted[idx] = !vinylPinInserted[idx];
 renderSpotifyTracks();
-applyThemeColors();
+}
+
+function getSpotifyEmbedUrl(url) {
+if (!url) return "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M";
+let clean = url.trim();
+if (clean.includes('/embed/')) return clean;
+clean = clean.replace('open.spotify.com/', 'open.spotify.com/embed/');
+return clean;
 }
 
 function renderSpotifyTracks() {
 const grid = document.getElementById('spotify-grid');
 if (!grid) return;
 const tracks = appData.spotifyTracks || [];
+
 if (tracks.length === 0) {
-grid.innerHTML = `<div class="col-span-full text-center py-10 text-stone-400 text-xs font-light">No Spotify tracks added yet.</div>`;
+grid.innerHTML = `<div class="col-span-full text-center py-10 text-stone-400 text-xs font-light">No Spotify playlists added yet.</div>`;
 return;
 }
+
 grid.innerHTML = tracks.map((track, idx) => {
-const embedUrl = formatSpotifyEmbedUrl(track.url);
 const isInserted = !!vinylPinInserted[idx];
 const cardId = `vinyl-card-${idx}`;
-return `<div id="${cardId}" class="vinyl-turntable-card p-6 rounded-3xl shadow-2xl relative overflow-hidden flex flex-col justify-between space-y-5 border-2 ${isInserted ? 'vinyl-glowing-active' : ''}" style="background-color: var(--card-bg, #ffffff); border-color: ${isInserted ? 'var(--accent-color)' : 'var(--border-color, rgba(0,0,0,0.1))'};"> <div class="flex items-center justify-between border-b pb-3 border-stone-200/60"> <div class="flex items-center gap-2" style="color: var(--accent-color);"> <i data-lucide="headphones" class="w-5 h-5 ${isInserted ? 'animate-spin-slow text-amber-400' : ''}"></i> <span class="text-xs font-mono uppercase tracking-widest font-bold">PLAYLIST #${idx + 1}</span> </div> <div class="flex items-center gap-2"> <span class="text-[10px] font-mono uppercase tracking-wider ${isInserted ? 'text-amber-400 font-bold' : 'opacity-60'}">${isInserted ? 'Playing' : 'Standby'}</span> <div class="w-3 h-3 rounded-full ${isInserted ? 'bg-amber-400 animate-pulse' : 'bg-stone-300'}" title="Status"></div> </div> </div> <div class="relative bg-stone-900 rounded-2xl p-4 md:p-5 border-4 border-stone-800 shadow-2xl overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4"> <div class="album-sleeve-box w-full md:w-5/12 rounded-xl p-4 border-2 shadow-md relative transform -rotate-2 hover:rotate-0 transition-all"> <span class="text-[9px] font-mono tracking-widest uppercase font-bold block" style="color: var(--accent-color);">ALBUM SLEEVE</span> <h3 class="serif-title text-xl md:text-2xl font-black truncate mt-1">${escapeHtml(track.title || 'hello')}</h3> </div> <div class="relative w-44 h-44 shrink-0 flex items-center justify-center my-2 cursor-pointer group" onclick="toggleVinylPin(${idx})" title="Click to insert/pull pin"> ${isInserted ?
+const embedUrl = getSpotifyEmbedUrl(track.url);
+
+const cardBgColor = isInserted ? '#120f24' : 'var(--card-bg, #ffffff)';
+const cardTextColor = isInserted ? '#fef3c7' : 'var(--text-primary, #3A1B20)';
+const sleeveBg = isInserted ? 'background: linear-gradient(135deg, #1e1b2e 0%, #0d0b14 100%); color: #fef3c7; border-color: var(--accent-color); box-shadow: 0 0 25px rgba(184,44,56,0.3);' : 'background-color: var(--card-bg, #ffffff); color: var(--text-primary, #3A1B20); border-color: var(--accent-color);';
+
+return `<div id="${cardId}" class="p-6 rounded-3xl shadow-2xl relative overflow-hidden flex flex-col justify-between space-y-5 border-2 ${isInserted ? 'vinyl-glowing-active' : ''}" style="background-color: ${cardBgColor}; color: ${cardTextColor}; border-color: ${isInserted ? 'var(--accent-color)' : 'var(--border-color, rgba(0,0,0,0.1))'};"> 
+<div class="flex items-center justify-between border-b pb-3 border-stone-200/60"> 
+<div class="flex items-center gap-2" style="color: var(--accent-color);"> 
+<i data-lucide="headphones" class="w-5 h-5 ${isInserted ? 'animate-spin-slow text-amber-400' : ''}"></i> 
+<span class="text-xs font-mono uppercase tracking-widest font-bold">PLAYLIST #${idx + 1}</span> 
+</div> 
+<div class="flex items-center gap-2"> 
+<span class="text-[10px] font-mono uppercase tracking-wider ${isInserted ? 'text-amber-400 font-bold' : 'opacity-60'}">${isInserted ? 'Playing' : 'Standby'}</span> 
+<div class="w-3 h-3 rounded-full ${isInserted ? 'bg-amber-400 animate-pulse' : 'bg-stone-300'}" title="Status"></div> 
+</div> 
+</div> 
+<div class="relative ${isInserted ? 'bg-[#0a0712]' : 'bg-stone-900'} rounded-2xl p-4 md:p-5 border-4 border-stone-800 shadow-2xl overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"> 
+<div class="w-full md:w-5/12 rounded-xl p-4 border-2 shadow-md relative transform -rotate-2 hover:rotate-0 transition-all" style="${sleeveBg}"> 
+<span class="text-[9px] font-mono tracking-widest uppercase font-bold block" style="color: var(--accent-color);">ALBUM SLEEVE</span> 
+<h3 class="serif-title text-xl md:text-2xl font-black truncate mt-1">${escapeHtml(track.title || 'hello')}</h3> 
+</div> 
+<div class="relative w-44 h-44 shrink-0 flex items-center justify-center my-2 cursor-pointer group" onclick="toggleVinylPin(${idx})" title="Click to insert/pull pin"> 
+${isInserted ?
 `<div class="floating-music-note text-amber-300 text-base top-2 left-6">🎵</div>
 <div class="floating-music-note text-rose-300 text-lg top-8 right-4" style="animation-delay: 0.9s;">🎶</div>
 <div class="floating-music-note text-sky-300 text-sm bottom-4 left-4" style="animation-delay: 1.6s;">✨</div>`
-: ''} <div class="w-40 h-40 rounded-full ${isInserted ? 'animate-spin-slow cd-back-glowing-active' : ''} flex items-center justify-center shadow-2xl relative" style="background: radial-gradient(circle, #2b2b2b 20%, #111111 35%, #222222 55%, #050505 80%, #1a1a1a 100%); border: 3px solid #444;"> <div class="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white shadow-inner" style="background-color: var(--accent-color);"> <i data-lucide="headphones" class="w-6 h-6 text-white"></i> </div> </div> <div class="absolute top-2 right-1 w-16 h-20 pointer-events-none transform transition-transform ${isInserted ? 'translate-x-1 translate-y-1' : '-translate-x-3 -translate-y-2 opacity-60'}"> <div class="w-5 h-5 rounded-full bg-stone-400 border-2 border-stone-600 absolute top-0 right-0 shadow"></div> <div class="w-1 h-14 bg-stone-300 absolute top-3 right-2 origin-top transform rotate-[25deg] shadow"></div> <div class="w-3 h-4 bg-stone-200 border border-stone-500 absolute top-14 right-8 transform rotate-[25deg] shadow-md"></div> </div> </div> </div> ${embedUrl ? `<div class="relative z-10 rounded-2xl overflow-hidden border border-stone-200 shadow-md"><iframe src="${embedUrl}" width="100%" height="152" frameborder="0" allowtransparency="true" allow="encrypted-media" loading="lazy"></iframe></div>` : `<a href="${escapeHtml(track.url)}" target="_blank" class="py-3 text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-2 shadow hover:opacity-90 transition-opacity" style="background-color: var(--accent-color);"><i data-lucide="external-link" class="w-4 h-4"></i><span>Open Spotify Playlist</span></a>`} </div>`;
+: ''} 
+<div class="w-40 h-40 rounded-full ${isInserted ? 'animate-spin-slow' : ''} flex items-center justify-center shadow-2xl relative" style="background: radial-gradient(circle, #2b2b2b 20%, #111111 35%, #222222 55%, #050505 80%, #1a1a1a 100%); border: 3px solid #444;"> 
+<div class="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white shadow-inner" style="background-color: var(--accent-color);"> 
+<i data-lucide="headphones" class="w-6 h-6 text-white"></i> 
+</div> 
+</div> 
+<div class="absolute top-2 right-1 w-16 h-20 pointer-events-none transform transition-transform ${isInserted ? 'translate-x-1 translate-y-1' : '-translate-x-3 -translate-y-2 opacity-60'}"> 
+<div class="w-5 h-5 rounded-full bg-stone-400 border-2 border-stone-600 absolute top-0 right-0 shadow"></div> 
+<div class="w-1 h-14 bg-stone-300 absolute top-3 right-2 origin-top transform rotate-[25deg] shadow"></div> 
+<div class="w-3 h-4 bg-stone-200 border border-stone-500 absolute top-14 right-8 transform rotate-[25deg] shadow-md"></div> 
+</div> 
+</div> 
+</div> 
+<div class="w-full rounded-2xl overflow-hidden bg-black/5 shadow-inner border border-stone-200/40">
+<iframe src="${escapeHtml(embedUrl)}" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>
+<a href="${escapeHtml(track.url)}" target="_blank" class="w-full py-3 text-white font-bold text-xs uppercase tracking-wider rounded-2xl flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-102" style="background-color: var(--accent-color);"><i data-lucide="external-link" class="w-4 h-4"></i><span>Open Full Playlist on Spotify</span></a> </div>`;
 }).join('');
+
 renderModalSpotifyList();
 if (window.lucide) lucide.createIcons();
 }
@@ -2009,7 +2005,7 @@ const wrapper = document.getElementById('persistent-audio-wrapper');
 const titleEl = document.getElementById('persistent-song-title');
 const videoId = extractVideoId(ytUrl);
 if (host && videoId) {
-host.innerHTML = `<iframe id="persistent-yt-iframe" class="w-full h-full rounded-xl pointer-events-auto" src="https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1&rel=0&playsinline=1&modestbranding=1" title="${escapeHtml(songTitle)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+host.innerHTML = `<iframe id="persistent-yt-iframe" class="w-full h-full rounded-xl pointer-events-auto" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&enablejsapi=1&rel=0&playsinline=1&modestbranding=1" title="${escapeHtml(songTitle)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
 if (wrapper) {
 wrapper.classList.remove('hidden');
 wrapper.style.display = 'flex';
@@ -2346,10 +2342,10 @@ if (window.lucide) lucide.createIcons();
 
 function clearSpotifyForm() {
 document.getElementById('editing-spotify-index').value = "-1";
-document.getElementById('spotify-editor-mode-label').innerText = "Add / Edit Spotify Track";
+document.getElementById('spotify-editor-mode-label').innerText = "Add / Edit Spotify Playlist";
 document.getElementById('new-spotify-title').value = '';
 document.getElementById('new-spotify-url').value = '';
-document.getElementById('add-spotify-btn').innerText = "Add Spotify Track";
+document.getElementById('add-spotify-btn').innerText = "Add Spotify Playlist";
 document.getElementById('cancel-spotify-edit-btn').classList.add('hidden');
 }
 
@@ -2357,7 +2353,7 @@ function editSpotifyTrack(idx) {
 const t = appData.spotifyTracks[idx];
 if (!t) return;
 document.getElementById('editing-spotify-index').value = idx;
-document.getElementById('spotify-editor-mode-label').innerText = `Edit Spotify Track #${idx + 1}`;
+document.getElementById('spotify-editor-mode-label').innerText = `Edit Spotify Playlist #${idx + 1}`;
 document.getElementById('new-spotify-title').value = t.title || '';
 document.getElementById('new-spotify-url').value = t.url || '';
 document.getElementById('add-spotify-btn').innerText = "Save Spotify Changes";
@@ -2606,19 +2602,6 @@ document.body.appendChild(a);
 a.click();
 document.body.removeChild(a);
 URL.revokeObjectURL(url);
-}
-
-function formatSpotifyEmbedUrl(url) {
-if (!url) return '';
-try {
-let clean = url.trim();
-if (clean.includes('spotify.com/embed/')) return clean;
-const match = clean.match(/spotify.com\/(track|playlist|album)\/([a-zA-Z0-9]+)/);
-if (match) return `https://open.spotify.com/embed/${match[1]}/${match[2]}?utm_source=generator&theme=0`;
-return '';
-} catch (e) {
-return '';
-}
 }
 
 function extractVideoId(url) {
